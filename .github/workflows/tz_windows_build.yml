@@ -7,18 +7,7 @@ defaults:
     run:
         shell: powershell
 on:
-    # Release build
-    release:
-        types: [published]
-        
-    workflow_call:
-        secrets:
-            ESIGNER_USER_NAME:
-                required: false
-            ESIGNER_USER_PASSWORD:
-                required: false
-            ESIGNER_USER_TOTP:
-                required: false
+    workflow_dispatch:
         inputs:
             arch:
                 type: string
