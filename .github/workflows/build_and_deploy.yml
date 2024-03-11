@@ -52,3 +52,16 @@ jobs:
         secrets:
             CF_R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
             CF_R2_TOKEN: ${{ secrets.CF_R2_TOKEN }}
+    windows:
+        if: github.event_name != 'workflow_dispatch' || inputs.windows
+        needs: prepare
+        name: Windows ${{ matrix.arch }}
+        strategy:
+            matrix:
+                arch: [ia32, x64]
+        uses: ./.github/workflows/build_windows.yaml
+        secrets: inherit
+        with:
+            sign: true
+            arch: ${{ matrix.arch }}
+            version: ${{ needs.prepare.outputs.nightly-version }}    
