@@ -49,7 +49,6 @@ jobs:
         outputs:
             nightly-version: ${{ steps.versions.outputs.nightly }}
         steps:
-            - uses: actions/checkout@v4
             - name: Checkout PL Comms Web Repos
               uses: actions/checkout@v4
               with:
@@ -63,3 +62,20 @@ jobs:
 
             - name: Install Deps
               run: "yarn install --frozen-lockfile"
+
+            # Workaround for yarn install timeouts, especially on Windows
+            - run: yarn config set network-timeout 300000
+
+            - name: Install Dependencies
+              run: "./scripts/layered.sh"
+
+            - name: Build
+              run: "yarn build"
+
+            - run: mv dist/element-*.tar.gz dist/develop.tar.gz
+
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: webapp
+                  path: dist/develop.tar.gz
+                  retention-days: 1
