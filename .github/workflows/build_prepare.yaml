@@ -63,14 +63,6 @@ jobs:
             - name: Install Deps
               run: "yarn install --frozen-lockfile"
 
-            # We split this out to save the build_* scripts having to do it to make use of `hashFiles` in the cache action
-            - name: Generate cache hash files
-              run: |
-                  yarn run --silent electron --version > electronVersion
-                  cat package.json | jq -c .hakDependencies | sha1sum > hakHash
-                  find hak -type f -print0 | xargs -0 sha1sum >> hakHash
-                  find scripts/hak -type f -print0 | xargs -0 sha1sum >> hakHash
-
             # Workaround for yarn install timeouts, especially on Windows
             - run: yarn config set network-timeout 300000
 
