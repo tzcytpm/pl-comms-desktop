@@ -69,13 +69,13 @@ jobs:
             - name: Install Dependencies
               run: "./scripts/layered.sh"
 
-            - name: Build, Package & Upload sourcemaps
-              run: "./scripts/ci_package.sh"
+            - name: Build
+              run: "yarn build"
             
-            - run: mv dist/element-*.tar.gz dist/develop.tar.gz
+            - run: tar chvzf webapp.tar.gz webapp
 
             - uses: actions/upload-artifact@v4
               with:
                   name: webapp
-                  path: dist/develop.tar.gz
+                  path: webapp.tar.gz
                   retention-days: 1
