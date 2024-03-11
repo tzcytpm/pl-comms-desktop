@@ -69,8 +69,8 @@ jobs:
             - name: Install Dependencies
               run: "./scripts/layered.sh"
 
-            - name: Build
-              run: "yarn build"
+            - name: Build, Package & Upload sourcemaps
+              run: "./scripts/ci_package.sh"
 
             - run: mv dist/element-*.tar.gz dist/develop.tar.gz
 
