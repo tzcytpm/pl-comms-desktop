@@ -50,6 +50,11 @@ jobs:
             nightly-version: ${{ steps.versions.outputs.nightly }}
         steps:
             - uses: actions/checkout@v4
+            - name: Checkout PL Comms Web Repos
+              uses: actions/checkout@v4
+              with:
+                  repository: privline/pl-comms-web
+                  ref: privline
 
             - uses: actions/setup-node@v4
               with:
