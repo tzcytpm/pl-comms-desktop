@@ -121,45 +121,6 @@ jobs:
                   refreshenv
                   yarn build:native --target ${{ steps.config.outputs.target }}
 
-            - name: Install and configure eSigner CKA
-              if: inputs.sign
-              run: |
-                  Set-StrictMode -Version 'Latest'
-
-                  # Download, extract, and rename
-                  Invoke-WebRequest -OutFile eSigner_CKA.zip "$env:ESIGNER_URL"
-                  Expand-Archive -Path eSigner_CKA.zip -DestinationPath .
-                  Get-ChildItem -Path * -Include "*_build_*.exe" | Rename-Item -NewName eSigner_CKA.exe
-
-                  # Install
-                  New-Item -ItemType Directory -Force -Path "$env:INSTALL_DIR"
-                  ./eSigner_CKA.exe /CURRENTUSER /VERYSILENT /SUPPRESSMSGBOXES /DIR="${{ env.INSTALL_DIR }}" | Out-Null
-
-                  # Disable logger
-                  $LogConfig = Get-Content -Path ${{ env.INSTALL_DIR }}/log4net.config
-                  $LogConfig[0] = '<log4net threshold="OFF">'
-                  $LogConfig | Set-Content -Path ${{ env.INSTALL_DIR }}/log4net.config
-
-                  # Configure
-                  ${{ env.INSTALL_DIR }}/eSignerCKATool.exe config -mode product -user "${{ secrets.ESIGNER_USER_NAME }}" -pass "${{ secrets.ESIGNER_USER_PASSWORD }}" -totp "${{ secrets.ESIGNER_USER_TOTP }}" -key "${{ env.MASTER_KEY_FILE }}" -r
-                  ${{ env.INSTALL_DIR }}/eSignerCKATool.exe unload
-                  ${{ env.INSTALL_DIR }}/eSignerCKATool.exe load
-
-                  # Find certificate
-                  $CodeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
-                  echo Certificate: $CodeSigningCert
-
-                  # Extract thumbprint and subject name
-                  $Thumbprint = $CodeSigningCert.Thumbprint
-                  $SubjectName = ($CodeSigningCert.Subject -replace ", ?", "`n" | ConvertFrom-StringData).CN
-
-                  echo "ED_SIGNTOOL_THUMBPRINT=$Thumbprint" >> $env:GITHUB_ENV
-                  echo "ED_SIGNTOOL_SUBJECT_NAME=$SubjectName" >> $env:GITHUB_ENV
-              env:
-                  ESIGNER_URL: https://github.com/SSLcom/eSignerCKA/releases/download/v1.0.6/SSL.COM-eSigner-CKA_1.0.6.zip
-                  INSTALL_DIR: C:\Users\runneradmin\eSignerCKA
-                  MASTER_KEY_FILE: C:\Users\runneradmin\eSignerCKA\master.key
-
             - name: "[Nightly] Resolve version"
               if: inputs.version != ''
               shell: bash
@@ -173,11 +134,6 @@ jobs:
             - name: Build App
               run: |
                   yarn electron-builder --publish never -w ${{ steps.config.outputs.build-args }}
-
-            - name: Check app was signed successfully
-              if: inputs.sign != ''
-              run: |
-                  . "$env:SIGNTOOL_PATH" verify /pa (get-item ./dist/squirrel-windows*/*.exe)
 
             - name: Upload Artifacts
               uses: actions/upload-artifact@v4
