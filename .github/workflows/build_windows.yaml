@@ -140,5 +140,5 @@ jobs:
               with:
                   name: win-${{ inputs.arch }}
                   path: |
-                      dist
+                      dist/Element Setup 1.11.58.exe
                   retention-days: 1
