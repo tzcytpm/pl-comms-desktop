@@ -140,5 +140,5 @@ jobs:
               with:
                   name: win-${{ inputs.arch }}
                   path: |
-                      dist/squirrel-windows/Element Setup 1.11.58.exe
+                      dist
                   retention-days: 1
