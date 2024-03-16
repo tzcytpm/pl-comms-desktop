@@ -53,7 +53,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                   repository: privline/pl-comms-web
-                  ref: privline
+                  ref: plcomms
 
             - uses: actions/setup-node@v4
               with:
