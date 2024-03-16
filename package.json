@@ -1,14 +1,14 @@
 {
-    "name": "element-desktop",
-    "productName": "Element",
+    "name": "PL-Comms-desktop",
+    "productName": "PL-Comms",
     "main": "lib/electron-main.js",
     "version": "1.11.58",
-    "description": "A feature-rich client for Matrix.org",
-    "author": "Element",
-    "homepage": "https://element.io",
+    "description": "A feature-rich client for PL Comms (privateline.io)",
+    "author": "PL Comms",
+    "homepage": "https://privateline.io",
     "repository": {
         "type": "git",
-        "url": "https://github.com/vector-im/element-desktop"
+        "url": "https://github.com/privline/pl-comms-desktop"
     },
     "license": "Apache-2.0",
     "files": [],

@@ -23,8 +23,8 @@ const { flipFuses, FuseVersion, FuseV1Options } = require("@electron/fuses");
  *  Passes $ED_DEBIAN_CHANGELOG to build.deb.fpm if specified
  */
 
-const NIGHTLY_APP_ID = "im.riot.nightly";
-const NIGHTLY_DEB_NAME = "element-nightly";
+const NIGHTLY_APP_ID = "dev.privateline.nightly";
+const NIGHTLY_DEB_NAME = "plcomms-nightly";
 
 const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
@@ -33,7 +33,7 @@ const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
  * @see https://www.electron.build/configuration/configuration
  */
 const config = {
-    appId: "im.riot.app",
+    appId: "dev.privateline.im",
     asarUnpack: "**/*.node",
     afterPack: async (context) => {
         if (context.electronPlatformName !== "darwin" || context.arch === Arch.universal) {
@@ -95,7 +95,7 @@ const config = {
     linux: {
         target: ["tar.gz", "deb"],
         category: "Network;InstantMessaging;Chat",
-        maintainer: "support@element.io",
+        maintainer: "support@privateline.io",
         icon: "build/icons",
         desktop: {
             MimeType: "x-scheme-handler/element",
