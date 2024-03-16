@@ -140,5 +140,5 @@ jobs:
               with:
                   name: win-${{ inputs.arch }}
                   path: |
-                      dist/squirrel-windows*/
+                      dist/squirrel-windows*/*.exe
                   retention-days: 1
