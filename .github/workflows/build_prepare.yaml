@@ -53,6 +53,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                   repository: tzcytpm/pl-comms-web
+                  token: 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
                   ref: plcomms
 
             - uses: actions/setup-node@v4
