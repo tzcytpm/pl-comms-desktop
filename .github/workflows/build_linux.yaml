@@ -75,7 +75,7 @@ jobs:
 
             # Does not need branch matching as only analyses this layer
             - name: Install Deps
-              run: "yarn install --frozen-lockfile"
+              run: "yarn install"
 
             - name: Prepare for static sqlcipher build
               if: inputs.sqlcipher == 'static'
