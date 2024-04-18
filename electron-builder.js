@@ -98,7 +98,7 @@ const config = {
         maintainer: "support@privateline.io",
         icon: "build/icons",
         desktop: {
-            MimeType: "x-scheme-handler/element",
+            MimeType: "x-scheme-handler/plcomms",
         },
     },
     deb: {
@@ -142,8 +142,8 @@ const config = {
     },
     protocols: [
         {
-            name: "element",
-            schemes: ["element"],
+            name: "plcomms",
+            schemes: ["plcomms"],
         },
     ],
 };
