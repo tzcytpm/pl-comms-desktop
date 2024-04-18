@@ -1,5 +1,5 @@
 {
-    "name": "PL-Comms-desktop",
+    "name": "plcomms-desktop",
     "productName": "PL-Comms",
     "main": "lib/electron-main.js",
     "version": "1.11.58",
