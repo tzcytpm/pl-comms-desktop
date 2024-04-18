@@ -64,4 +64,32 @@ jobs:
         with:
             sign: false
             arch: ${{ matrix.arch }}
-            version: ${{ needs.prepare.outputs.nightly-version }}    
+            version: ${{ needs.prepare.outputs.nightly-version }}  
+    macos:
+        if: github.event_name != 'workflow_dispatch' || inputs.macos
+        needs: prepare
+        name: macOS
+        uses: ./.github/workflows/build_macos.yaml
+        secrets: inherit
+        with:
+            sign: true
+            base-url: https://packages.element.io/${{ needs.prepare.outputs.packages-dir }}
+            version: ${{ needs.prepare.outputs.nightly-version }}
+
+    linux:
+        if: github.event_name != 'workflow_dispatch' || inputs.linux
+        needs: prepare
+        name: Linux ${{ matrix.arch }} (sqlcipher ${{ matrix.sqlcipher }})
+        strategy:
+            matrix:
+                arch: [amd64, arm64]
+                sqlcipher: [system, static]
+                exclude:
+                    - arch: arm64
+                      sqlcipher: static
+        uses: ./.github/workflows/build_linux.yaml
+        with:
+            arch: ${{ matrix.arch }}
+            config: ${{ needs.prepare.outputs.config }}
+            sqlcipher: ${{ matrix.sqlcipher }}
+            version: ${{ needs.prepare.outputs.nightly-version }}
