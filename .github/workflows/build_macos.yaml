@@ -68,6 +68,13 @@ jobs:
             - name: Install Deps
               run: "yarn install"
 
+            - name: Extract webapp
+              run: |
+                  tar xf webapp.tar.gz 
+            - name: Asar webapp
+              run: 
+                  node_modules/.bin/asar p webapp webapp.asar
+
             - name: Build Natives
               if: steps.cache.outputs.cache-hit != 'true'
               run: |
