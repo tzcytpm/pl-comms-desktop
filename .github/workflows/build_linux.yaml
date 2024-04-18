@@ -77,6 +77,13 @@ jobs:
             - name: Install Deps
               run: "yarn install"
 
+            - name: Extract webapp
+              run: |
+                  tar xf webapp.tar.gz 
+            - name: Asar webapp
+              run: 
+                  node_modules/.bin/asar p webapp webapp.asar
+
             - name: Prepare for static sqlcipher build
               if: inputs.sqlcipher == 'static'
               run: |
