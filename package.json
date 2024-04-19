@@ -2,7 +2,7 @@
     "name": "plcomms-desktop",
     "productName": "PL-Comms",
     "main": "lib/electron-main.js",
-    "version": "1.11.58",
+    "version": "1.11.64",
     "description": "A feature-rich client for PL Comms (privateline.io)",
     "author": "PL Comms",
     "homepage": "https://privateline.io",
@@ -13,7 +13,7 @@
     "license": "Apache-2.0",
     "files": [],
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=21.6.2"
     },
     "scripts": {
         "i18n": "matrix-gen-i18n && yarn i18n:sort && yarn i18n:lint",
