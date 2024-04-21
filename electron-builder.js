@@ -33,7 +33,7 @@ const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
  * @see https://www.electron.build/configuration/configuration
  */
 const config = {
-    appId: "dev.privateline.im",
+    appId: "network.privateline.im",
     asarUnpack: "**/*.node",
     afterPack: async (context) => {
         if (context.electronPlatformName !== "darwin" || context.arch === Arch.universal) {
