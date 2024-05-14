@@ -53,7 +53,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                   repository: tzcytpm/pl-comms-web
-                  ref: v1.11.64
+                  ref: v1.11.66-network
 
             - uses: actions/setup-node@v4
               with:
@@ -70,7 +70,7 @@ jobs:
               run: "./scripts/layered.sh"
 
             - name: Build
-              run: "VERSION=v1.11.64 yarn build"
+              run: "VERSION=v1.11.66 yarn build"
             
             - run: tar chvzf webapp.tar.gz webapp
 
