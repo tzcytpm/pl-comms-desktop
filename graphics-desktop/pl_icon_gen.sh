@@ -9,7 +9,7 @@ dest_folder="$mydir/../build/icons"
 
 for w in 16 24 48 64 96 128 256 512
 do
-  convert "$mydir/plcomms_icon_orig.png" -resize "$wx$w" "$dest_folder/${w}x$w.png"
+  convert "$mydir/plcomms_icon_round.png" -resize "$wx$w" "$dest_folder/${w}x$w.png"
 done
 
 dest_folder="$mydir/../build"
@@ -21,5 +21,5 @@ convert "$mydir/install-spinner.gif" "$dest_folder/install-spinner.gif"
 dest_folder="$mydir/../res/img"
 convert "$mydir/icon_256.ico" "$dest_folder/element.ico"
 convert "$mydir/icon_256.ico" "$dest_folder/plcomms.ico"
-convert "$mydir/plcomms_icon_orig.png" -resize "256x256" "$dest_folder/element.png"
-convert "$mydir/plcomms_icon_orig.png" -resize "256x256" "$dest_folder/plcomms.png"
+convert "$mydir/plcomms_icon_round.png" -resize "256x256" "$dest_folder/element.png"
+convert "$mydir/plcomms_icon_round.png" -resize "256x256" "$dest_folder/plcomms.png"
