@@ -2,7 +2,7 @@
     "name": "plcomms-desktop",
     "productName": "PL-Comms",
     "main": "lib/electron-main.js",
-    "version": "1.11.66",
+    "version": "1.11.67",
     "description": "A feature-rich client for PL Comms (privateline.io)",
     "author": "PL Comms",
     "homepage": "https://privateline.io",
