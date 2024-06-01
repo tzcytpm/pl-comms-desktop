@@ -24,5 +24,9 @@
     <true/>
     <key>com.apple.security.device.audio-input</key>
     <true/>
+    <key>com.apple.security.application-groups</key>
+    <array>
+      <string>BVCDXX39W4.network.privateline.im</string>
+    </array>
 </dict>
 </plist>
