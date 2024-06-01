@@ -30,7 +30,7 @@ on:
 jobs:
     build:
         runs-on: macos-14 # M1
-        environment: ${{ inputs.sign && 'packages.element.io' || '' }}
+        environment: ${{ inputs.sign && 'pl-comms-desktop' || '' }}
         steps:
             - uses: actions/checkout@v4
 
