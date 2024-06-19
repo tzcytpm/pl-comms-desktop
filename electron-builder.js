@@ -34,7 +34,6 @@ const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
  */
 const config = {
     appId: "network.privateline.im",
-    afterSign: "scripts/notarize.js",
     asarUnpack: "**/*.node",
     afterPack: async (context) => {
         if (context.electronPlatformName !== "darwin" || context.arch === Arch.universal) {
@@ -129,7 +128,7 @@ const config = {
         category: "public.app-category.social-networking",
         darkModeSupport: true,
         hardenedRuntime: true,
-        gatekeeperAssess: false,
+        gatekeeperAssess: true,
         entitlements: "./build/entitlements.mac.plist",
         icon: "build/icons/icon.icns",
     },
