@@ -49,7 +49,7 @@ jobs:
         outputs:
             nightly-version: ${{ steps.versions.outputs.nightly }}
         steps:
-            - name: Checkout PL Comms Web Repos
+            - name: Checkout privateLINE Comms Web Repos
               uses: actions/checkout@v4
               with:
                   repository: tzcytpm/pl-comms-web
@@ -70,7 +70,7 @@ jobs:
               run: "./scripts/layered.sh"
 
             - name: Build
-              run: "VERSION=v1.11.67 yarn build"
+              run: "VERSION=v1.11.68 yarn build"
             
             - run: tar chvzf webapp.tar.gz webapp
 
