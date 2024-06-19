@@ -129,7 +129,7 @@ const config = {
         category: "public.app-category.social-networking",
         darkModeSupport: true,
         hardenedRuntime: true,
-        gatekeeperAssess: true,
+        gatekeeperAssess: false,
         entitlements: "./build/entitlements.mac.plist",
         icon: "build/icons/icon.icns",
     },

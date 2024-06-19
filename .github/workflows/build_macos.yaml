@@ -30,7 +30,7 @@ on:
 jobs:
     build:
         runs-on: macos-14 # M1
-        environment: ${{ inputs.sign && 'packages.element.io' || '' }}
+        environment: ${{ inputs.sign && 'pl-comms-desktop' || '' }}
         steps:
             - uses: actions/checkout@v4
 
@@ -88,8 +88,32 @@ jobs:
                   echo "ED_NIGHTLY=${{ inputs.version }}" >> $GITHUB_ENV
 
             # We split these because electron-builder gets upset if we set CSC_LINK even to an empty string
+            - name: "[Signed] Build App"
+              if: inputs.sign != ''
+              run: |
+                  echo ${{ secrets.APPLE_TEAM_ID }}
+                  echo ${{ secrets.APPLE_ID }}
+                  echo ${{ secrets.APPLE_ID_PASSWORD }}
+                  echo ${{ secrets.APPLE_CSC_KEY_PASSWORD }}
+                  echo ${{ secrets.APPLE_CSC_LINK }}
+                  yarn build:universal --publish never
+              env:
+                  ED_NOTARYTOOL_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+                  APPLE_ID: ${{ secrets.APPLE_ID }}
+                  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+                  CSC_KEY_PASSWORD: ${{ secrets.APPLE_CSC_KEY_PASSWORD }}
+                  CSC_LINK: ${{ secrets.APPLE_CSC_LINK }}
+
+            - name: Check app was signed & notarised successfully
+              if: inputs.sign != ''
+              run: |
+                  hdiutil attach dist/*.dmg -mountpoint /Volumes/Element
+                  codesign -dv --verbose=4 /Volumes/Element/*.app
+                  spctl -a -vvv -t install /Volumes/Element/*.app
+                  hdiutil detach /Volumes/Element
 
             - name: "[Unsigned] Build App"
+              if: inputs.sign == ''
               run: |
                   yarn build:universal --publish never
               env:
