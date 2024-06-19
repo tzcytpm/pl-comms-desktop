@@ -24,7 +24,7 @@ const { flipFuses, FuseVersion, FuseV1Options } = require("@electron/fuses");
  */
 
 const NIGHTLY_APP_ID = "dev.privateline.nightly";
-const NIGHTLY_DEB_NAME = "plcomms-nightly";
+const NIGHTLY_DEB_NAME = "privateline-comms-nightly";
 
 const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
@@ -34,6 +34,7 @@ const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
  */
 const config = {
     appId: "network.privateline.im",
+    afterSign: "scripts/notarize.js",
     asarUnpack: "**/*.node",
     afterPack: async (context) => {
         if (context.electronPlatformName !== "darwin" || context.arch === Arch.universal) {
@@ -98,7 +99,7 @@ const config = {
         maintainer: "support@privateline.io",
         icon: "build/icons",
         desktop: {
-            MimeType: "x-scheme-handler/plcomms",
+            MimeType: "x-scheme-handler/privateline-comms",
         },
     },
     deb: {
@@ -119,9 +120,9 @@ const config = {
         recommends: ["libsqlcipher0", "element-io-archive-keyring"],
         fpm: [
             "--deb-field",
-            "Replaces: riot-desktop (<< 1.7.0), riot-web (<< 1.7.0)",
+            "Replaces: privateline-comms-desktop (<< 1.7.0), privateline-comms-web (<< 1.7.0)",
             "--deb-field",
-            "Breaks: riot-desktop (<< 1.7.0), riot-web (<< 1.7.0)",
+            "Breaks: privateline-comms-desktop (<< 1.7.0), privateline-comms-web (<< 1.7.0)",
         ],
     },
     mac: {
@@ -142,8 +143,8 @@ const config = {
     },
     protocols: [
         {
-            name: "plcomms",
-            schemes: ["plcomms"],
+            name: "privateline-comms",
+            schemes: ["privateline-comms"],
         },
     ],
 };

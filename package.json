@@ -1,10 +1,10 @@
 {
-    "name": "plcomms-desktop",
-    "productName": "PL-Comms",
+    "name": "privateline-comms-desktop",
+    "productName": "privateLINE-Comms",
     "main": "lib/electron-main.js",
     "version": "1.11.66",
-    "description": "A feature-rich client for PL Comms (privateline.io)",
-    "author": "PL Comms",
+    "description": "A feature-rich client for privateLINE Comms (privateline.io)",
+    "author": "privateLINE Comms",
     "homepage": "https://privateline.io",
     "repository": {
         "type": "git",
@@ -50,7 +50,7 @@
         "build": "yarn run build:ts && yarn run build:res && electron-builder",
         "build:ts": "tsc",
         "build:res": "ts-node scripts/copy-res.ts",
-        "docker:setup": "docker build --platform linux/amd64 -t plcomms-desktop-dockerbuild dockerbuild",
+        "docker:setup": "docker build --platform linux/amd64 -t privateline-comms-desktop-dockerbuild dockerbuild",
         "docker:build:native": "scripts/in-docker.sh yarn run hak",
         "docker:build": "scripts/in-docker.sh yarn run build",
         "docker:install": "scripts/in-docker.sh yarn install",
@@ -58,8 +58,8 @@
         "hak": "ts-node scripts/hak/index.ts",
         "test": "playwright test",
         "test:open": "yarn test --ui",
-        "test:screenshots:build": "docker build playwright -t plcomms-desktop-playwright --platform linux/amd64",
-        "test:screenshots:run": "docker run --rm --network host -v $(pwd):/work/plcomms-desktop -v /var/run/docker.sock:/var/run/docker.sock --platform linux/amd64 -it plcomms-desktop-playwright"
+        "test:screenshots:build": "docker build playwright -t privateline-comms-desktop-playwright --platform linux/amd64",
+        "test:screenshots:run": "docker run --rm --network host -v $(pwd):/work/privateline-comms-desktop -v /var/run/docker.sock:/var/run/docker.sock --platform linux/amd64 -it privateline-comms-desktop-playwright"
     },
     "dependencies": {
         "@sentry/electron": "^4.3.0",
@@ -100,6 +100,7 @@
         "electron-builder": "24.13.3",
         "electron-builder-squirrel-windows": "24.13.3",
         "electron-devtools-installer": "^3.2.0",
+        "electron-notarize": "^1.2.1",
         "eslint": "^8.26.0",
         "eslint-config-google": "^0.14.0",
         "eslint-config-prettier": "^9.0.0",
