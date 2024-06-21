@@ -106,7 +106,7 @@ jobs:
 
             # Does not need branch matching as only analyses this layer
             - name: Install Deps
-              run: "yarn install --frozen-lockfile"
+              run: "yarn install"
 
             - name: Extract webapp
               run: |
@@ -140,5 +140,5 @@ jobs:
               with:
                   name: win-${{ inputs.arch }}
                   path: |
-                      dist/squirrel-windows*/
+                      dist/squirrel-windows*/*.exe
                   retention-days: 1

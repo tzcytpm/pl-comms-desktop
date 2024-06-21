@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy Dev
 on:
     # Nightly build
     #schedule:
@@ -43,7 +43,7 @@ env:
     R2_BUCKET: ${{ vars.R2_BUCKET }}
 jobs:
     prepare:
-        uses: ./.github/workflows/build_prepare.yaml
+        uses: ./.github/workflows/build_prepare_dev.yaml
         with:
             config: element.io/${{ inputs.mode || (github.event_name == 'release' && 'release') || 'nightly' }}
             version: ${{ (inputs.mode != 'release' && github.event_name != 'release') && 'develop' || '' }}

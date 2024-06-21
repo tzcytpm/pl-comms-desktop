@@ -70,7 +70,7 @@ jobs:
               run: "./scripts/layered.sh"
 
             - name: Build
-              run: "VERSION=v1.11.68 yarn build"
+              run: "VERSION=v1.11.68 yarn build:dev"
             
             - run: tar chvzf webapp.tar.gz webapp
 
