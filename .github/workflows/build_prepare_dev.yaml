@@ -1,0 +1,81 @@
+# This action helps perform common actions before the build_* actions are started in parallel.
+on:
+    workflow_call:
+        inputs:
+            config:
+                type: string
+                required: true
+                description: "The config directory to use"
+            version:
+                type: string
+                required: false
+                description: "The version tag to fetch, or 'develop', will pick automatically if not passed"
+            nightly:
+                type: boolean
+                required: false
+                default: false
+                description: "Whether the build is a Nightly and to calculate the version strings new builds should use"
+            deploy:
+                type: boolean
+                required: false
+                default: false
+                description: "Whether the build should be deployed to production"
+        secrets:
+            # Required if `nightly` is set
+            CF_R2_ACCESS_KEY_ID:
+                required: false
+            # Required if `nightly` is set
+            CF_R2_TOKEN:
+                required: false
+        outputs:
+            nightly-version:
+                description: "The version string the next Nightly should use, only output for nightly"
+                value: ${{ jobs.prepare.outputs.nightly-version }}
+            packages-dir:
+                description: "The directory non-deb packages for this run should live in within packages.element.io"
+                value: ${{ inputs.nightly && 'nightly' || 'desktop' }}
+            # These are just simple pass-throughs of the input to simplify reuse of complex inline conditions
+            config:
+                description: "The relative path to the config file for this run"
+                value: ${{ inputs.config }}
+            deploy:
+                description: "The relative path to the config file for this run"
+                value: ${{ inputs.deploy }}
+jobs:
+    prepare:
+        name: Prepare
+        environment: ${{ inputs.nightly && 'packages.element.io' || '' }}
+        runs-on: ubuntu-latest
+        outputs:
+            nightly-version: ${{ steps.versions.outputs.nightly }}
+        steps:
+            - name: Checkout privateLINE Comms Web Repos
+              uses: actions/checkout@v4
+              with:
+                  repository: tzcytpm/pl-comms-web
+                  ref: v1.11.66-network
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: package.json
+                  cache: "yarn"
+
+            - name: Install Deps
+              run: "yarn install"
+
+            # Workaround for yarn install timeouts, especially on Windows
+            - run: yarn config set network-timeout 300000
+
+            - name: Install Dependencies
+              run: "./scripts/layered.sh"
+
+            - name: Build
+              run: "VERSION=v1.11.68 yarn build:dev"
+            
+            - run: tar chvzf webapp.tar.gz webapp
+
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: webapp
+                  path: webapp.tar.gz
+                  retention-days: 1
