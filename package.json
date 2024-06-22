@@ -1,6 +1,6 @@
 {
     "name": "privateline-comms-desktop-dev",
-    "productName": "privateLINE-Comms Dev",
+    "productName": "privateLINE Comms Dev",
     "main": "lib/electron-main.js",
     "version": "1.11.68",
     "description": "A feature-rich client for privateLINE Comms Dev (privateline.dev)",
