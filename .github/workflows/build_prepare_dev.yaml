@@ -66,8 +66,8 @@ jobs:
             # Workaround for yarn install timeouts, especially on Windows
             - run: yarn config set network-timeout 300000
 
-            - name: Install Dependencies
-              run: "./scripts/layered.sh"
+            #- name: Install Dependencies
+            #  run: "./scripts/layered.sh"
 
             - name: Build
               run: |
