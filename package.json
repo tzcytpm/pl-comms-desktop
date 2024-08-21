@@ -2,7 +2,7 @@
     "name": "privateline-comms-desktop",
     "productName": "privateLINE-Comms",
     "main": "lib/electron-main.js",
-    "version": "1.11.70",
+    "version": "1.11.71",
     "description": "A feature-rich client for privateLINE Comms (privateline.io)",
     "author": "privateLINE Comms",
     "homepage": "https://privateline.io",
